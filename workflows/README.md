@@ -53,15 +53,15 @@ Think of this workflow as the **Execution & Control Plane**.
 ## 🔄 How the Workflows Work Together
 
 Google Drive (Meeting Notes Created)  
-        ===>
+===>
 Meeting Follow-up Agent (AI Reasoning)
-        ===>
+===>
 AI-Proposed Actions (Structured JSON)
-        ===>
+===>
 Slack Actions Workflow
-        ===>
+===>
 Slack Approval Dashboard
-        ===>
+===>
 Approved Actions → Slack | Jira | Google Calendar
 
 
