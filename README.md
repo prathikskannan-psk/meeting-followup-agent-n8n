@@ -141,14 +141,47 @@ This mirrors how you translate discussion into action.
 
 ---
 
-### 3️⃣ The Approval Dashboard
-- **Human Review Surface:** Interactive Slack cards  
-- Users can:
-  - ✅ Approve & Send / Create  
-  - ✏️ Edit AI-drafted content  
-  - ❌ Discard incorrect or irrelevant actions  
+### 3️⃣ The Approval Dashboard (Where Work Actually Happens)
 
-This preserves control while eliminating repetitive admin work.
+At the heart of the workflow is an **interactive approval dashboard delivered directly in Slack**.
+
+Instead of dumping suggestions into a document or forcing users into a separate UI, the system presents **action-specific Slack cards** — each designed for fast, low-friction decision-making.
+
+Each proposed follow-up is rendered as a **typed action**, with controls tailored to how that action will be executed.
+
+---
+
+#### 💬 Slack Messages (Internal Coordination)
+- Pre-drafted Slack message generated from meeting context  
+- Recipient selector (user or channel)  
+- Inline editing of message content  
+- One-click **Approve & Send** or **Discard**
+
+---
+
+#### 🎫 Jira Tasks (Execution Tracking)
+- Proposed task title and description  
+- Suggested priority and ownership  
+- Inline editing before creation  
+- One-click **Create Task** or **Discard**
+
+---
+
+#### 🗓️ Calendar Follow-Ups (Scheduling)
+- Context-aware meeting proposal and agenda  
+- Attendee selection  
+- Guided time selection  
+- Explicit confirmation before scheduling
+
+---
+
+### 🧠 Human-in-the-Loop by Design
+Across all action types:
+- AI **proposes**, never executes
+- Humans **review, edit, and decide**
+- Nothing is sent, created, or scheduled without approval
+
+This preserves trust while eliminating repetitive administrative work.
 
 ---
 
