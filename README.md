@@ -72,7 +72,6 @@ Google Meet action items are useful — but insufficient for execution at scale.
 - Optimized for human readability, not automation  
 - Black-box outputs with no schema guarantees  
 - Limited to explicitly stated tasks  
-- No awareness of historical or cross-meeting context  
 
 **Why a custom LLM approach works better:**
 
