@@ -1,0 +1,363 @@
+{
+  "name": "Meeting follow-up agent",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {}
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1XgsMT9315Dw3qmeBFcDn98O25ECEVFLj",
+          "mode": "list",
+          "cachedResultName": "Meeting recordings",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1XgsMT9315Dw3qmeBFcDn98O25ECEVFLj"
+        },
+        "event": "fileCreated",
+        "options": {
+          "fileType": "application/vnd.google-apps.document"
+        }
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -288
+      ],
+      "id": "ba4156c6-1c6a-4e42-b7f8-301bcb723541",
+      "name": "Google Drive Trigger",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "3a3WODfK0o31BKoZ",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -288
+      ],
+      "id": "233a8a04-5978-42e9-bce4-02f55b1a623d",
+      "name": "Get a document",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "apgB8UI1bLleLBK4",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a Meeting Follow-Up Extractor.\n\nInput:\n{\n  \"title\": \"{{ $json.title }}\",\n  \"transcript\": \"{{ $json.transcript }}\"\n}\n\nTasks:\n1. Summarize the meeting in ONE concise sentence (max 2 lines of text).\n2. Extract high-value follow-up actions (3–10 items).\n3. Assign every action to exactly one category:\n   - slack_message (for DMs/updates)\n   - schedule_meeting (for synchronous syncs)\n   - create_task (for tickets/to-dos)\n\n---\nCATEGORY RULES (CRITICAL):\n\n1. IF category == \"slack_message\"\n   - target_persons: List ALL recipients (e.g. [\"Alice\", \"Bob\"]).\n   - subject: Short topic summary.\n   - content: The draft message text. Address recipients collectively if needed.\n\n2. IF category == \"schedule_meeting\"\n   - target_persons: List required attendees.\n   - subject: Calendar Event Title.\n   - content: Meeting Agenda (bullet points).\n\n3. IF category == \"create_task\"\n   - target_persons: The Assignee (usually one person).\n   - subject: Ticket Title (imperative).\n   - content: Description / Acceptance Criteria.\n\n---\nOWNER RULES:\n- Identify who committed to the action (Owner).\n- If unclear, use \"Unassigned\".\n\n---\nOutput Schema:\n{\n  \"meeting_title\": \"string\",\n  \"summary\": \"string\",\n  \"actions\": [\n    {\n      \"id\": \"string\",\n      \"category\": \"slack_message | schedule_meeting | create_task\",\n      \"owner\": \"string\",\n      \"target_persons\": [\"string\"],\n      \"subject\": \"string\",\n      \"content\": \"string\",\n      \"priority\": \"high | medium | low\",\n      \"suggested_duration_minutes\": number\n    }\n  ]\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        1120,
+        -288
+      ],
+      "id": "1b4fcc53-0140-4878-a21c-508054a1cfd5",
+      "name": "AI Agent",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1136,
+        -64
+      ],
+      "id": "bfc426e5-1b51-4c71-9842-b4c1b0d5b81e",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "iFSyDMNdtuNVoPOa",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"meeting_title\": { \"type\": \"string\" },\n    \"summary\": { \"type\": \"string\" },\n    \"actions\": {\n      \"type\": \"array\",\n      \"items\": {\n        \"type\": \"object\",\n        \"properties\": {\n          \"id\": { \"type\": \"string\" },\n          \"category\": {\n            \"type\": \"string\",\n            \"enum\": [\"schedule_meeting\", \"slack_message\", \"create_task\"]\n          },\n          \"owner\": { \"type\": \"string\" },\n          \"target_persons\": {\n            \"type\": \"array\",\n            \"items\": { \"type\": \"string\" },\n            \"description\": \"List of names of people receiving this action.\"\n          },\n          \"subject\": { \"type\": \"string\" },\n          \"content\": { \"type\": \"string\" },\n          \"priority\": { \"type\": \"string\", \"enum\": [\"high\", \"medium\", \"low\"] },\n          \"suggested_duration_minutes\": { \"type\": \"number\" }\n        },\n        \"required\": [\"id\", \"category\", \"owner\", \"target_persons\", \"subject\", \"content\", \"priority\"]\n      }\n    }\n  },\n  \"required\": [\"meeting_title\", \"summary\", \"actions\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1264,
+        -64
+      ],
+      "id": "4b6f4636-d663-4070-a16f-7a7eaedba734",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Build Slack Blocks (MVP: unified buttons, no Assign vs Create split)\n//\n// 1. Meetings ALWAYS show \"Find Times 🔍\" (You are the scheduler).\n// 2. Tasks ALWAYS show \"Create ➕\".\n// 3. Slack messages ALWAYS show \"Approve & Send\".\n// 4. Uses compressed button state to avoid 2000-char issues.\n\nconst item = items[0]?.json?.output || items[0]?.json || {};\nconst meetingTitle = item.meeting_title || \"Meeting\";\nconst summary = item.summary || \"\";\nconst actions = Array.isArray(item.actions) ? item.actions : [];\n\n// Helper: Compress Data (Short keys, truncated content)\nfunction createButtonState(a) {\n  const safeContent = (a.content || \"\").toString().substring(0, 600);\n  return {\n    id: String(a.id ?? \"\"),          // keep original id if present\n    c: a.category,\n    o: a.owner,\n    tp: a.target_persons,\n    s: a.subject,\n    k: safeContent,\n    p: a.priority,\n    d: a.suggested_duration_minutes || 30,\n    mt: meetingTitle\n  };\n}\n\nconst blocks = [];\n\n// Header\nblocks.push(\n  { type: \"section\", text: { type: \"mrkdwn\", text: `*Meeting:* ${meetingTitle}` } },\n  { type: \"section\", text: { type: \"mrkdwn\", text: `*Summary*\\\\n${summary}` } },\n  { type: \"divider\" }\n);\n\nif (!actions.length) {\n  blocks.push({\n    type: \"section\",\n    text: { type: \"mrkdwn\", text: \"_No actions._\" }\n  });\n  return [{ json: { blocks } }];\n}\n\nactions.forEach((a, index) => {\n  const n = index + 1;\n\n  // Harden against missing fields\n  const owner = (a.owner || \"Unassigned\").toString();\n  const safeSubject = (a.subject || \"(No subject)\").toString();\n  const safeContent = (a.content || \"\").toString();\n\n  // Make block ids stable + safe (fallback to n if id missing)\n  const safeId = String(a.id ?? n);\n\n  // Recipients display\n  let recipientsDisplay = \"None\";\n  if (Array.isArray(a.target_persons)) recipientsDisplay = a.target_persons.join(\", \");\n  else if (typeof a.target_persons === \"string\") recipientsDisplay = a.target_persons;\n\n  // --- UI Defaults ---\n  let icon = \"⚡\";\n  let contentLabel = \"Details\";\n  let dropdownPlaceholder = \"Select...\";\n  let primaryBtnText = \"Approve\";\n  let primaryActionId = \"approve_generic\";\n\n  // CASE 1: MEETINGS\n  if (a.category === \"schedule_meeting\") {\n    icon = \"🗓️\";\n    contentLabel = \"Agenda\";\n    dropdownPlaceholder = \"Attendees...\";\n    primaryBtnText = \"Find Times 🔍\";\n    primaryActionId = \"schedule_request\";\n  }\n\n  // CASE 2: SLACK MESSAGES\n  else if (a.category === \"slack_message\") {\n    icon = \"💬\";\n    contentLabel = \"Draft\";\n    dropdownPlaceholder = \"Recipients...\";\n    primaryBtnText = \"Approve & Send\";\n    primaryActionId = \"approve_followup\";\n  }\n\n  // CASE 3: TASKS\n  else if (a.category === \"create_task\") {\n    icon = \"🎫\";\n    contentLabel = \"Desc\";\n    dropdownPlaceholder = \"Assignee...\";\n    primaryBtnText = \"Create ➕\";\n    primaryActionId = \"task_request\";\n  }\n\n  const textSection =\n    `*${n}. ${icon} ${safeSubject}*\\n` +\n    `*Owner:* ${owner} | *Rec:* ${recipientsDisplay}\\n` +\n    `*${contentLabel}:* ${safeContent}`;\n\n  blocks.push({\n    type: \"section\",\n    block_id: `section_${safeId}`,\n    text: { type: \"mrkdwn\", text: textSection },\n    accessory: {\n      type: \"multi_conversations_select\",\n      action_id: \"select_recipients\",\n      placeholder: { type: \"plain_text\", text: dropdownPlaceholder }\n    }\n  });\n\n  const jsonValue = JSON.stringify(createButtonState(a));\n\n  blocks.push({\n    type: \"actions\",\n    block_id: `actions_${safeId}`,\n    elements: [\n      {\n        type: \"button\",\n        text: { type: \"plain_text\", text: primaryBtnText },\n        style: \"primary\",\n        action_id: primaryActionId,\n        value: jsonValue\n      },\n      {\n        type: \"button\",\n        text: { type: \"plain_text\", text: \"Edit\" },\n        action_id: \"edit_followup\",\n        value: jsonValue\n      },\n      {\n        type: \"button\",\n        text: { type: \"plain_text\", text: \"Discard\" },\n        style: \"danger\",\n        action_id: \"discard_followup\",\n        value: jsonValue\n      }\n    ]\n  });\n\n  blocks.push({ type: \"divider\" });\n});\n\nreturn [{ json: { blocks } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1472,
+        -288
+      ],
+      "id": "efadece1-8b94-455d-b52a-fe5a45527a5d",
+      "name": "Build Slack Blocks"
+    },
+    {
+      "parameters": {
+        "jsCode": "const out = [];\n\nfor (const item of items) {\n  const doc = item.json;\n  const tabs = doc.tabs || [];\n\n  function findTranscriptTab(tabArray) {\n    for (const tab of tabArray) {\n      const title = tab.tabProperties?.title || '';\n      if (title.toLowerCase().includes('transcript')) {\n        return tab;\n      }\n      if (tab.childTabs && tab.childTabs.length) {\n        const found = findTranscriptTab(tab.childTabs);\n        if (found) return found;\n      }\n    }\n    return null;\n  }\n\n  const transcriptTab = findTranscriptTab(tabs);\n\n  if (!transcriptTab || !transcriptTab.documentTab?.body) {\n    throw new Error('Transcript tab not found or has no body content');\n  }\n\n  const content = transcriptTab.documentTab.body.content || [];\n  const lines = [];\n\n  for (const block of content) {\n    if (!block.paragraph) continue;\n\n    let line = '';\n    for (const el of (block.paragraph.elements || [])) {\n      const run = el.textRun;\n      if (run?.content) line += run.content;\n    }\n\n    if (line.trim().length > 0) {\n      lines.push(line.trimEnd());\n    }\n  }\n\n  const transcriptText = lines.join('\\n');\n\n  out.push({\n    json: {\n      documentId: doc.documentId,\n      title: doc.title,\n      transcript: transcriptText,\n    },\n  });\n}\n\nreturn out;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        896,
+        -288
+      ],
+      "id": "99843717-cb74-460a-a85e-58f56c8bfbe7",
+      "name": "Transcript → Cleaned Text"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/chat.postMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{\"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  (() => {\n    const cfg = $('Config').item?.json || {};\n    const blocks = $json.blocks || [];\n\n    // Accept channel name (\"n8n-followups-internal\" or \"#n8n-followups-internal\")\n    // OR channel ID (\"C0123...\", \"G0123...\", \"D0123...\")\n    const rawChannel = (cfg.slack_channel || '').trim();\n    if (!rawChannel) throw new Error('Config.slack_channel is empty. Please set it (e.g., #my-channel).');\n\n    const isId = /^[CGD][A-Z0-9]+$/i.test(rawChannel);\n    const channel =\n      isId ? rawChannel :\n      rawChannel.startsWith('#') ? rawChannel :\n      `#${rawChannel}`;\n\n    // Safe meeting title extraction from first block \"*Meeting:* ...\"\n    let meetingTitle = 'Meeting';\n    try {\n      const headerText = blocks?.[0]?.text?.text || '';\n      const m = headerText.match(/\\*Meeting:\\*\\s*(.*)/);\n      if (m && m[1]) meetingTitle = m[1].trim();\n    } catch (e) {}\n\n    return JSON.stringify({\n      channel,\n      text: `⚡ Action Items: ${meetingTitle}`,\n      blocks\n    });\n  })()\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1696,
+        -288
+      ],
+      "id": "f8636949-a6c8-4d7f-94af-ad06d6fa3487",
+      "name": "Send Card to Slack"
+    },
+    {
+      "parameters": {
+        "url": "=https://docs.googleapis.com/v1/documents/{{ $json.documentId }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDocsOAuth2Api",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "includeTabsContent",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        672,
+        -288
+      ],
+      "id": "4aa3bbaa-785f-4c6e-a545-0fd5ead88fbb",
+      "name": "Get Doc (all tabs)",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "apgB8UI1bLleLBK4",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0da41b4b-2998-4f57-94a5-810da73e7573",
+              "name": "slack_channel",
+              "value": "REPLACE_ME_SLACK_CHANNEL",
+              "type": "string"
+            },
+            {
+              "id": "d432c214-ae60-4847-9c49-73ce611b3948",
+              "name": "SLACK_BOT_TOKEN",
+              "value": "REPLACE_ME_SLACK_BOT_TOKEN",
+              "type": "string"
+            },
+            {
+              "id": "912f6a5f-01b6-4973-b6e2-9a661956c70f",
+              "name": "SLACK_API_BASE",
+              "value": "https://slack.com/api",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        -288
+      ],
+      "id": "47e82997-134e-4f3c-b925-970cfb6b444f",
+      "name": "Config"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a document": {
+      "main": [
+        [
+          {
+            "node": "Get Doc (all tabs)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Build Slack Blocks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Slack Blocks": {
+      "main": [
+        [
+          {
+            "node": "Send Card to Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcript → Cleaned Text": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Doc (all tabs)": {
+      "main": [
+        [
+          {
+            "node": "Transcript → Cleaned Text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Card to Slack": {
+      "main": [
+        []
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Get a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "05a4eca1-69de-4d75-b004-3cf2ff4929bd",
+  "meta": {
+    "templateId": "self-building-ai-agent",
+    "templateCredsSetupCompleted": true,
+    "instanceId": "25e8fc29e0908f075e61e727b2c150c7c3ad88ebf939d888f5bfdecb977f8a23"
+  },
+  "id": "d8ASUfvvt3HzlkhY",
+  "tags": []
+}

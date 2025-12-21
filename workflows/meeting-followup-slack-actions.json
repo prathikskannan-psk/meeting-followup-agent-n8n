@@ -1,0 +1,1173 @@
+{
+  "name": "Meeting Follow-up – Slack Actions",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "slack-actions",
+        "options": {
+          "responseData": "{}",
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Content-Type",
+                "value": "application/json; charset=utf-8"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -112,
+        1232
+      ],
+      "id": "385359ae-c1dd-4ecb-a7c4-f3fe3501ff67",
+      "name": "Slack button Webhook",
+      "webhookId": "949168af-8ab8-4945-a9b1-c5c83eb34eb1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "approve_followup",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "a9cd39d7-8670-4d46-85fb-881a301b9bd4"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "47ee5f2c-7496-4689-8597-b7eb55fab628",
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "schedule_request",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "a72be064-c341-4e94-8e95-4a171692dae7",
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "task_request",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "cb14bdc3-1b00-4f3c-9d86-f666e22f4773",
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "edit_followup",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "4e2f3111-f7cf-4121-93f2-97c570e19336",
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "discard_followup",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "96d19c00-7eaa-4f21-8d46-9aa75cac1ab2",
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "submit_meeting",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "b35ffda2-18b7-47c2-8809-2c282a419645",
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "submit_task",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2aedf048-c398-4929-8c79-bad792e1bd2e",
+                    "leftValue": "={{ $json.route_id }}",
+                    "rightValue": "submit_edit",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        560,
+        1136
+      ],
+      "id": "ab666880-5108-4109-8db0-7d7b5f892662",
+      "name": "Traffic Control"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Universal Parser & Router Normalizer\n\nfunction wrap(obj) {\n  return [{ json: obj }];\n}\n\nconst body = $json.body || {};\nconst payloadStr = body.payload;\n\nif (!payloadStr) {\n  return wrap({\n    mode: \"error\",\n    reason: \"no_payload\",\n    raw: body,\n  });\n}\n\nconst p = JSON.parse(payloadStr);\nconst type = p.type || \"unknown\";\n\n// ------------------------------------------------------\n// 1) BUTTON CLICKS (block_actions)\n// ------------------------------------------------------\nif (type === \"block_actions\") {\n  const action = (p.actions && p.actions[0]) || {};\n  let val = {};\n  try {\n    val = JSON.parse(action.value || \"{}\");\n  } catch (e) {\n    val = {};\n  }\n\n  return wrap({\n    mode: \"button_click\",\n\n    // unified routing key used in Traffic Control\n    route_id: action.action_id,\n\n    // original button data\n    action_id:     action.action_id,\n    followup_id:   val.id,\n    category:      val.c,\n    subject:       val.s,\n    content:       val.k,\n    owner:         val.o,\n    priority:      val.p,\n    duration:      val.d,\n    meeting_title: val.mt,\n\n    // slack context\n    trigger_id:   p.trigger_id,\n    response_url: p.response_url,\n    user_id:      p.user && p.user.id,\n\n    // IMPORTANT: for chat.update later\n    card_channel: p.channel && p.channel.id,\n    card_ts:      p.message && p.message.ts,\n\n    raw: p,\n  });\n}\n\n// ------------------------------------------------------\n// 2) MODAL SUBMISSIONS (view_submission)\n// ------------------------------------------------------\nif (type === \"view_submission\") {\n  const view = p.view || {};\n\n  let meta = {};\n  try {\n    meta = JSON.parse(view.private_metadata || \"{}\");\n  } catch (e) {\n    meta = {};\n  }\n\n  const values =\n    (view.state && view.state.values) ||\n    {};\n\n  return wrap({\n    mode: \"modal_submit\",\n\n    // unified routing key for Traffic Control\n    route_id: view.callback_id,\n\n    // modal data\n    callback_id: view.callback_id,\n    meta,\n    values,\n    user_id: p.user && p.user.id,\n\n    // CRITICAL: wire channel + ts from private_metadata\n    card_channel: meta.ch,\n    card_ts:      meta.ts,\n\n    raw: p,\n  });\n}\n\n// ------------------------------------------------------\n// 3) FALLBACK\n// ------------------------------------------------------\nreturn wrap({\n  mode: \"unknown\",\n  slack_type: type,\n  raw: p,\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        96,
+        1232
+      ],
+      "id": "83473cb6-3994-4c11-8e8e-c01146261684",
+      "name": "Parse Slack Payload"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Smart Discard Logic (Block Recycling)\n// Reads the visual blocks from Slack, crosses out the target item, and returns the new list.\n\nconst payload = $json;\nconst targetActionId = payload.followup_id; // e.g. \"1\", \"A1\"\nconst currentUser = payload.user_name || \"User\"; // Who clicked?\n\n// 1. Get the existing blocks from the message payload\nlet existingBlocks = [];\nif (payload.raw && payload.raw.message && payload.raw.message.blocks) {\n    existingBlocks = payload.raw.message.blocks;\n} else if (payload.message && payload.message.blocks) {\n    existingBlocks = payload.message.blocks;\n}\n\nconst newBlocks = [];\n\n// 2. Loop through every block in the message\nfor (const block of existingBlocks) {\n    \n    // Check if this block belongs to the item we want to discard\n    // We identify it by the block_id we set in Workflow 1 (\"section_ID\")\n    const isTargetSection = (block.block_id === `section_${targetActionId}`);\n    const isTargetAction  = (block.block_id === `actions_${targetActionId}`);\n\n    if (isTargetSection) {\n        // --- MODIFY THE TEXT ---\n        // Cross out the text and add the \"Discarded\" label\n        const originalText = block.text.text;\n        \n        // Split title from body to make it look clean\n        const lines = originalText.split('\\n');\n        // Remove bold stars (*) so strikethrough (~) works better\n        const titleLine = lines[0].replace(/\\*/g, ''); \n        \n        const newText = `~${titleLine}~\\n❌ *Discarded by @${currentUser}*`;\n\n        newBlocks.push({\n            type: \"section\",\n            block_id: block.block_id, // Keep the ID\n            text: { type: \"mrkdwn\", text: newText }\n            // We intentionally do NOT add the 'accessory' (dropdown), removing it.\n        });\n\n    } else if (isTargetAction) {\n        // --- REMOVE THE BUTTONS ---\n        // We skip this block entirely. By not pushing it to 'newBlocks', \n        // the buttons for this item are deleted.\n        continue; \n\n    } else {\n        // --- KEEP EVERYTHING ELSE ---\n        // Headers, other items, and dividers stay exactly the same.\n        newBlocks.push(block);\n    }\n}\n\n// Return the structure Slack needs for an update\nreturn [{ json: { blocks: newBlocks, response_url: payload.response_url } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        1424
+      ],
+      "id": "6b62f414-c801-423a-90a9-780c07d08adb",
+      "name": "Rebuild Discarded Card"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Resolve User / Channel IDs from multi_conversations_select\n\nconst item = $json;\nconst raw = item.raw || {};\nconst targetActionId = item.followup_id; // e.g. \"6\"\n\n// 1. Locate the dropdown state from Slack interactive payload\nconst blockId  = `section_${targetActionId}`;\nconst actionId = \"select_recipients\";\n\nlet selected = [];\ntry {\n  const stateValues = raw.state?.values || {};\n  const blockState  = stateValues[blockId];\n\n  if (blockState && blockState[actionId]) {\n    selected = blockState[actionId].selected_conversations || [];\n  }\n} catch (e) {\n  // ignore, we'll validate below\n}\n\n// 2. Split into users vs channels\nconst users    = selected.filter(id => id.startsWith('U'));                    // DMs\nconst channels = selected.filter(id => id.startsWith('C') || id.startsWith('G')); // public/private channels\n\n// 3. Validation if absolutely nothing selected\nif (users.length === 0 && channels.length === 0) {\n  throw new Error(`⚠️ No recipient selected! Please pick at least one user or channel for item ${targetActionId}.`);\n}\n\n// 4. Routing logic:\n//    - If at least one channel selected → send ONLY to that channel\n//    - Else fall back to DM the first user\nconst channelOverride = channels.length > 0 ? channels[0] : null;\nconst dmUserId        = (channels.length === 0 && users.length > 0) ? users[0] : null;\n\n// 5. Display string for the card (\"Sent to: …\")\nconst recipientsDisplay = selected\n  .map(id => {\n    if (id.startsWith('U')) return `<@${id}>`;  // user mention\n    if (id.startsWith('C') || id.startsWith('G')) return `<#${id}>`; // channel mention\n    return id;\n  })\n  .join(' ');\n\nreturn [{\n  json: {\n    // Where to actually send the message\n    channel_override: channelOverride,  // C... / G... or null\n    dm_user_id:       dmUserId,        // U... or null\n\n    // Message content\n    message_text: item.content,\n    response_url: item.response_url,\n\n    // For downstream nodes\n    recipients_display: recipientsDisplay,\n    raw\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        656
+      ],
+      "id": "f579f886-2810-48b6-af9a-7af0c9e7b04a",
+      "name": "Resolve User IDs"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/conversations.open",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"users\": \"{{ $json.dm_user_id || '' }}\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1008,
+        656
+      ],
+      "id": "98b592fc-12ec-4b53-92bf-ad7a89b27f1b",
+      "name": "Open Group DM"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/chat.postMessage",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  JSON.stringify({\n    // 1. Prefer explicit channel_override (C..., G...)\n    // 2. Otherwise, fall back to DM channel from Open Group DM node\n    channel: $('Resolve User IDs').item.json.channel_override || $json.channel.id,\n\n    // Text always from Resolve User IDs\n    text: $('Resolve User IDs').item.json.message_text\n  })\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1232,
+        656
+      ],
+      "id": "645e8ee3-a048-4220-94b9-980deea6c6f1",
+      "name": "Send Message"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rebuild Edited Card (Safe Version)\n// Validates fetch results to prevent wiping the card.\n\n// 1. Get Inputs\nconst parserData = $('Parse Slack Payload').item.json; \nconst meta = parserData.meta; \nconst values = parserData.values;\n\n// 2. Validate History Fetch\nconst messages = $json.messages || [];\nif (!messages.length || !messages[0].blocks) {\n    throw new Error(`❌ Could not fetch original message! TS: ${meta.ts}, Channel: ${meta.ch}. Check permissions or timestamp format.`);\n}\n\nconst originalMessage = messages[0];\nconst blocks = originalMessage.blocks;\nconst newBlocks = [];\n\n// 3. New Content from Modal\nconst newSubject = values.input_topic.topic_val.value;\nconst newContent = values.input_content.content_val.value;\n\n// 4. Iterate and Update\nfor (const block of blocks) {\n    \n    // A. Update Text Section (Find by Block ID)\n    if (block.block_id === `section_${meta.fid}`) {\n        let icon = \"⚡\";\n        let contentLabel = \"Details\";\n        \n        if (meta.cat === 'slack_message') { icon = \"💬\"; contentLabel = \"Draft\"; }\n        else if (meta.cat === 'schedule_meeting') { icon = \"🗓️\"; contentLabel = \"Agenda\"; }\n        else if (meta.cat === 'create_task') { icon = \"🎫\"; contentLabel = \"Desc\"; }\n        \n        // Handle Recipients\n        let rec = meta.rec;\n        let recipientsDisplay = \"None\";\n        if (Array.isArray(rec)) recipientsDisplay = rec.join(\", \");\n        else if (typeof rec === 'string') recipientsDisplay = rec;\n\n        const textSection = \n          `*${meta.fid}. ${icon} ${newSubject}*\\n` +\n          `*Owner:* ${meta.own} | *Rec:* ${recipientsDisplay}\\n` + \n          `*${contentLabel}:* ${newContent}`; \n          \n        newBlocks.push({\n            ...block,\n            text: { type: \"mrkdwn\", text: textSection }\n        });\n    } \n    \n    // B. Update Buttons (Compress Data & Preserve ID)\n    else if (block.block_id === `actions_${meta.fid}`) {\n        \n        const compressedState = {\n            id: meta.fid, c: meta.cat, o: meta.own, tp: meta.rec,\n            s: newSubject,             \n            k: newContent.substring(0, 600), \n            p: meta.pri, d: 0, mt: meta.mt || \"Meeting\"\n        };\n        const jsonValue = JSON.stringify(compressedState);\n        \n        const newElements = block.elements.map(el => ({ ...el, value: jsonValue }));\n        newBlocks.push({ ...block, elements: newElements });\n    } \n    \n    // C. Keep other blocks (Context, Dividers, Other Items)\n    else {\n        newBlocks.push(block);\n    }\n}\n\n// OUTPUT: Pass to chat.update\nreturn [{ \n    json: { \n        blocks: newBlocks, \n        channel: meta.ch, \n        ts: meta.ts \n    } \n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1008,
+        1808
+      ],
+      "id": "185763e7-eb91-4d46-ae89-eeeded142043",
+      "name": "Rebuild Edited Card"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/views.open",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  (() => {\n    // 1. Get Coordinates of the message\n    // Slack payload usually has container.message_ts or message.ts\n    const ts = $json.raw.container?.message_ts || $json.raw.message?.ts;\n    const channel = $json.raw.container?.channel_id || $json.raw.channel?.id;\n\n    // 2. Create Tiny Metadata (No Blocks)\n    const safeMeta = {\n      fid: $json.followup_id,\n      cat: $json.category,\n      own: $json.owner,\n      rec: $json.target_persons,\n      pri: $json.priority,\n      mt:  $json.meeting_title,\n      url: $json.response_url,\n      // CRITICAL: Save coordinates for the Fetch node\n      ts: ts,\n      ch: channel\n    };\n\n    return JSON.stringify({\n      trigger_id: $json.trigger_id,\n      view: {\n        type: \"modal\",\n        callback_id: \"submit_edit\",\n        private_metadata: JSON.stringify(safeMeta),\n        title: { type: \"plain_text\", text: \"Edit Draft\" },\n        submit: { type: \"plain_text\", text: \"Save\" },\n        close: { type: \"plain_text\", text: \"Cancel\" },\n        blocks: [\n          {\n            type: \"input\",\n            block_id: \"input_topic\",\n            label: { type: \"plain_text\", text: \"Subject\" },\n            element: {\n              type: \"plain_text_input\",\n              action_id: \"topic_val\",\n              initial_value: $json.subject || \"\"\n            }\n          },\n          {\n            type: \"input\",\n            block_id: \"input_content\",\n            label: { type: \"plain_text\", text: \"Message Body\" },\n            element: {\n              type: \"plain_text_input\",\n              action_id: \"content_val\",\n              multiline: true,\n              initial_value: $json.content || \"\"\n            }\n          }\n        ]\n      }\n    });\n  })()\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        784,
+        1232
+      ],
+      "id": "5e086262-8f22-45a8-9b96-75d21ee9446a",
+      "name": "Open Edit_Modal"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://slack.com/api/chat.update",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  JSON.stringify({\n    channel: $json.channel,\n    ts: $json.ts,\n    text: \"Card updated successfully\", // Fallback text for notifications\n    blocks: $json.blocks\n  })\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1232,
+        1808
+      ],
+      "id": "b853b432-4072-4a5b-93ca-f599f55f1a0b",
+      "name": "Update Slack After Edit"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.response_url }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ replace_original: \"true\", blocks: $json.blocks }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1008,
+        1424
+      ],
+      "id": "ba7d9b85-aeb9-40f2-a085-8e6ea3ffa91d",
+      "name": "Update Slack After Discard"
+    },
+    {
+      "parameters": {
+        "url": "https://slack.com/api/conversations.history",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "channel",
+              "value": "={{ $json.meta.ch }}"
+            },
+            {
+              "name": "latest",
+              "value": "={{ $json.meta.ts }}"
+            },
+            {
+              "name": "inclusive",
+              "value": "true"
+            },
+            {
+              "name": "limit",
+              "value": "1"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        784,
+        1808
+      ],
+      "id": "c46070bf-90e6-4c5c-85b9-5fc005ca51f9",
+      "name": "Fetch Original Message"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rebuild Approved Card (In-Place Update)\n// Mark the target item as \"Sent\", remove its buttons, keep other items.\n\n// 1. Get Data from previous nodes\nconst parserData  = $('Parse Slack Payload').item.json;\nconst resolveData = $('Resolve User IDs').item.json;\n\nconst targetId   = parserData.followup_id;              // The item we just approved\nconst recipients = resolveData.recipients_display || ''; // Already formatted (<@U..> / <#C..>)\n\n// 2. Get current blocks from the Button Click payload\n// (Since \"Approve\" is a button click, 'raw.message.blocks' holds the current state)\nconst existingBlocks = parserData.raw.message.blocks || [];\nconst newBlocks = [];\n\n// 3. Loop and Update\nfor (const block of existingBlocks) {\n\n  // A. Target Text Section: Add \"Sent\" status\n  if (block.block_id === `section_${targetId}`) {\n    const originalText = block.text?.text || '';\n\n    const suffix = recipients\n      ? `\\n\\n✅ *Message successfully sent to:* ${recipients}`\n      : `\\n\\n✅ *Message successfully sent.*`;\n\n    const newText = `${originalText}${suffix}`;\n\n    newBlocks.push({\n      type: \"section\",\n      block_id: block.block_id,\n      text: { type: \"mrkdwn\", text: newText }\n      // We intentionally OMIT 'accessory' to remove the dropdown\n    });\n  }\n\n  // B. Target Action Section: Remove buttons\n  else if (block.block_id === `actions_${targetId}`) {\n    // Skip this block to delete the Approve/Edit/Discard buttons\n    continue;\n  }\n\n  // C. Everything else: Keep exactly as is\n  else {\n    newBlocks.push(block);\n  }\n}\n\n// 4. Return updated blocks for the response_url updater\nreturn [{\n  json: {\n    blocks: newBlocks,\n    response_url: parserData.response_url\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1456,
+        656
+      ],
+      "id": "30b8d9ab-8dd0-4d42-b758-dfa8f022a570",
+      "name": "Rebuild Approved Card"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.response_url }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  JSON.stringify({\n    replace_original: \"true\",\n    blocks: $json.blocks\n  })\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1680,
+        656
+      ],
+      "id": "f1c7430c-d2de-4ae9-a821-7e3282c349be",
+      "name": "Update Slack"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Resolve Attendees & Add Organizer (With Coordinates)\nconst item = $json;\nconst raw = item.raw || {};\nconst targetActionId = item.followup_id; \n\n// 1. Locate Dropdown Selection\nconst blockId = `section_${targetActionId}`;\nconst actionId = \"select_recipients\";\nlet selectedIds = [];\n\ntry {\n  const stateValues = raw.state?.values || {};\n  const blockState = stateValues[blockId];\n  if (blockState && blockState[actionId]) {\n      selectedIds = blockState[actionId].selected_conversations || [];\n  }\n} catch (e) {}\n\n// 2. Add the \"Owner\" (You)\nconst currentUserId = item.user_id; \nif (!selectedIds.includes(currentUserId)) {\n    selectedIds.push(currentUserId);\n}\n\nif (selectedIds.length === 0) throw new Error(\"⚠️ No attendees found. Please select someone in the dropdown.\");\n\n// 3. Extract Coordinates (CRITICAL FIX)\nconst ts = raw.container?.message_ts || raw.message?.ts;\nconst channel = raw.container?.channel_id || raw.channel?.id;\n\nreturn [{\n  json: {\n    attendee_ids: selectedIds, \n    meta: {\n        subject: item.subject,\n        content: item.content, \n        duration: item.duration || 30,\n        trigger_id: item.trigger_id,\n        response_url: item.response_url,\n        // Save these so we can fetch the message in Phase 2\n        ts: ts,\n        ch: channel,\n        followup_id: item.followup_id\n    }\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        784,
+        848
+      ],
+      "id": "26502428-f6cb-4a1c-8348-41007eb28b22",
+      "name": "Resolve Attendees"
+    },
+    {
+      "parameters": {
+        "url": "https://slack.com/api/users.list",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{\"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1008,
+        848
+      ],
+      "id": "96b442e4-8d58-4562-8dcd-4ba8ab2ca1b0",
+      "name": "Get All Users"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Map Slack IDs -> Emails\n// Input 1: \"Resolve Attendees\" (List of IDs)\n// Input 2: \"Get All Users\" (List of Profiles)\n\n// Access data from previous nodes\nconst prevNode = $('Resolve Attendees').item.json;\nconst targetIds = prevNode.attendee_ids;\nconst slackMembers = $json.members || [];\n\nconst emails = [];\n\ntargetIds.forEach(targetId => {\n    const user = slackMembers.find(m => m.id === targetId);\n    // Only add if they have an email (Bots might not)\n    if (user && user.profile && user.profile.email) {\n        emails.push(user.profile.email);\n    }\n});\n\nif (emails.length === 0) throw new Error(\"Could not resolve any emails from the selection.\");\n\nreturn [{\n    json: {\n        emails: emails, // [\"me@corp.com\", \"you@corp.com\"]\n        meta: prevNode.meta\n    }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        848
+      ],
+      "id": "e0e7ae05-09ee-47e8-9226-c616d91e2831",
+      "name": "Map IDs to Emails"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "={{ $('Config').item.json.gcal_calendar }}",
+          "mode": "id"
+        },
+        "timeMax": "={{ $now.plus(3, 'days') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1456,
+        848
+      ],
+      "id": "91da3a09-b2b4-4b5b-a370-c013ae24e91f",
+      "name": "Get availability in a calendar",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "yox8YBLpjr2BtOPh",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Calculate 3 free slots across all calendars\n\n// 1) Free/busy data from Google\nconst data = $json;\nconst busyCalendars = data.calendars || {};\n\n// 2) Meta + emails come from \"Map IDs to Emails\"\nconst mapNode = $('Map IDs to Emails');   // <- n8n helper, works in Function nodes\n\nconst meta = (\n  mapNode &&\n  mapNode.item &&\n  mapNode.item.json &&\n  mapNode.item.json.meta\n) || {};\n\nconst emails = (\n  mapNode &&\n  mapNode.item &&\n  mapNode.item.json &&\n  mapNode.item.json.emails\n) || [];\n\nconst durationMinutes = meta.duration || 30;\n\n// 3) Collect all busy ranges (ms timestamps)\nconst allBusy = [];\nObject.values(busyCalendars).forEach(cal => {\n  (cal.busy || []).forEach(b => {\n    allBusy.push({\n      start: new Date(b.start).getTime(),\n      end:   new Date(b.end).getTime(),\n    });\n  });\n});\n\nfunction isSlotFree(start, end) {\n  return !allBusy.some(busy => (start < busy.end && end > busy.start));\n}\n\n// 4) Generate up to 3 free slots\nconst slots = [];\nlet cursor = new Date();\n\n// round to next whole hour\ncursor.setMinutes(0, 0, 0);\ncursor.setHours(cursor.getHours() + 1);\n\nlet attempts = 0;\nwhile (slots.length < 3 && attempts < 100) {\n  const h = cursor.getHours();\n\n  // Business hours: 9am–5pm\n  if (h >= 9 && h < 17) {\n    const start = cursor.getTime();\n    const end   = start + durationMinutes * 60 * 1000;\n\n    if (isSlotFree(start, end)) {\n      slots.push({\n        text: cursor.toLocaleString('en-US', {\n          weekday: 'short',\n          month:   'short',\n          day:     'numeric',\n          hour:    'numeric',\n          minute:  '2-digit',\n        }),\n        value: cursor.toISOString(),\n      });\n\n      // jump 2 hours after a placed slot\n      cursor.setHours(cursor.getHours() + 2);\n    } else {\n      // otherwise move forward 30 minutes\n      cursor.setMinutes(cursor.getMinutes() + 30);\n    }\n  } else {\n    // shift to next day 9am\n    cursor.setDate(cursor.getDate() + 1);\n    cursor.setHours(9, 0, 0, 0);\n  }\n\n  attempts++;\n}\n\n// 5) Output for Open Time Picker\nreturn [{\n  json: {\n    slots,\n    meta,\n    emails,\n  },\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        848
+      ],
+      "id": "6538421c-2b72-42d8-9de6-0bbb5fc1a32d",
+      "name": "Calculate Slots"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/views.open",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  (() => {\n    const slots = $json.slots || [];\n    const meta  = $json.meta  || {};\n    const emails = $json.emails || [];\n\n    let options = slots.map(s => ({\n      text:  { type: \"plain_text\", text: s.text },\n      value: s.value,\n    }));\n\n    if (options.length === 0) {\n      options.push({\n        text:  { type: \"plain_text\", text: \"No slots found in next 3 days\" },\n        value: \"none\",\n      });\n    }\n\n    return JSON.stringify({\n      trigger_id: meta.trigger_id,\n      view: {\n        type: \"modal\",\n        callback_id: \"submit_meeting\",\n\n        // Carry forward everything we need later\n        private_metadata: JSON.stringify({\n          subject:      meta.subject,\n          content:      meta.content,\n          emails:       emails,\n          response_url: meta.response_url,\n          followup_id:  meta.followup_id,\n          ts:           meta.ts,  // original card ts\n          ch:           meta.ch,  // original card channel\n          duration:     meta.duration || 30,\n        }),\n\n        title:  { type: \"plain_text\", text: \"Schedule Meeting\" },\n        submit: { type: \"plain_text\", text: \"Book It\" },\n        close:  { type: \"plain_text\", text: \"Cancel\" },\n\n        blocks: [\n          {\n            type: \"section\",\n            text: {\n              type: \"mrkdwn\",\n              text: `*Event:* ${meta.subject}\\n*Duration:* ${meta.duration || 30} mins`,\n            },\n          },\n          {\n            type: \"input\",\n            block_id: \"input_time\",\n            label: { type: \"plain_text\", text: \"Available slots\" },\n            element: {\n              type: \"radio_buttons\",\n              action_id: \"time_selection\",\n              options,\n            },\n          },\n        ],\n      },\n    });\n  })()\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1904,
+        848
+      ],
+      "id": "96087a45-a7f7-4240-a62c-ed7bfb4f17a0",
+      "name": "Open Time Picker"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "={{ $('Config').item.json.gcal_calendar }}",
+          "mode": "id"
+        },
+        "start": "={{ $('Parse Slack Payload').item.json.values.input_time.time_selection.selected_option.value }}",
+        "end": "={{ DateTime.fromISO($('Parse Slack Payload').item.json.values.input_time.time_selection.selected_option.value).plus({ minutes: 30 }) }}",
+        "additionalFields": {
+          "allday": "no",
+          "attendees": [
+            "={{ ($('Parse Slack Payload').item.json.meta.emails || []).join(',') }}"
+          ],
+          "conferenceDataUi": {
+            "conferenceDataValues": {
+              "conferenceSolution": "hangoutsMeet"
+            }
+          },
+          "description": "={{ $('Parse Slack Payload').item.json.meta.content }}",
+          "summary": "={{ $('Parse Slack Payload').item.json.meta.subject }}",
+          "visibility": "default"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        1008,
+        1616
+      ],
+      "id": "e1900904-6108-4660-ac8f-e31403706439",
+      "name": "Create GCal Event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "yox8YBLpjr2BtOPh",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rebuild Booked Card – after GCal event is created\n\n// 1) Grab data from earlier nodes\n\n// Parse Slack Payload (modal submission) – contains meta with ts & ch\nconst parserItem = $items('Parse Slack Payload')[0]?.json || {};\nconst meta = parserItem.meta || {};\n\n// Original Slack message fetched before booking\nconst fetchItem = $items('Fetch Original Message for Gcal')[0]?.json || {};\n// conversations.history response shape: { messages: [ ... ] }\nconst message = Array.isArray(fetchItem.messages)\n  ? fetchItem.messages[0]\n  : fetchItem;\n\nconst blocks = message.blocks || [];\n\n// Current GCal event (this node's own input)\nconst gcal = $json;\n\n// followup id that we used in the block_ids (section_A5, actions_A5, etc.)\nconst targetId = meta.followup_id;\n\n// 2) Extract links from the calendar event\nlet meetLink = gcal.hangoutLink || '';\nif (!meetLink && gcal.conferenceData?.entryPoints?.length) {\n  const videoEntry = gcal.conferenceData.entryPoints.find(\n    ep => ep.entryPointType === 'video'\n  );\n  if (videoEntry?.uri) meetLink = videoEntry.uri;\n}\n\nconst eventLink = gcal.htmlLink || '';\n\n// 3) Rebuild Slack blocks: add \"Meeting booked\" text and remove buttons\nconst newBlocks = [];\n\nfor (const block of blocks) {\n  if (block.block_id === `section_${targetId}`) {\n    const originalText = block.text?.text || '';\n\n    const newText =\n      `${originalText}\\n\\n` +\n      `✅ *Meeting booked*\\n` +\n      `${eventLink ? `<${eventLink}|Open in Google Calendar>` : ''}` +\n      `${eventLink && meetLink ? ' | ' : ''}` +\n      `${meetLink ? `<${meetLink}|Join video call>` : ''}`;\n\n    newBlocks.push({\n      type: 'section',\n      block_id: block.block_id,\n      text: { type: 'mrkdwn', text: newText },\n    });\n  } else if (block.block_id === `actions_${targetId}`) {\n    // Drop the buttons for this follow-up\n    continue;\n  } else {\n    // Keep all other blocks untouched\n    newBlocks.push(block);\n  }\n}\n\n// 4) Output for the next HTTP node (chat.update)\nreturn [\n  {\n    json: {\n      blocks: newBlocks,\n      card_channel: meta.ch,   // channel id for chat.update\n      card_ts: meta.ts,        // message ts for chat.update\n    },\n  },\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        1616
+      ],
+      "id": "2c6f30b5-d4d8-4a99-86bc-e230654e4cf7",
+      "name": "Rebuild Booked Card"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://slack.com/api/chat.update",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  JSON.stringify({\n    channel: $json.card_channel,\n    ts:      $json.card_ts,\n    blocks:  $json.blocks\n  })\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1456,
+        1616
+      ],
+      "id": "8189e109-7d09-413e-8c4e-30362f1f1a02",
+      "name": "Update Slack After Gcal Event"
+    },
+    {
+      "parameters": {
+        "url": "https://slack.com/api/conversations.history",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "channel",
+              "value": "={{ $json.meta.ch }}"
+            },
+            {
+              "name": "latest",
+              "value": "={{ $json.meta.ts }}"
+            },
+            {
+              "name": "inclusive",
+              "value": "true"
+            },
+            {
+              "name": "limit",
+              "value": "1"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{ \"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN }}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        784,
+        1616
+      ],
+      "id": "5123e00e-4bed-452f-bb48-6e8000775cc1",
+      "name": "Fetch Original Message for Gcal"
+    },
+    {
+      "parameters": {
+        "project": {
+          "__rl": true,
+          "value": "10000",
+          "mode": "list",
+          "cachedResultName": "My Scrum Project"
+        },
+        "issueType": {
+          "__rl": true,
+          "value": "10003",
+          "mode": "list",
+          "cachedResultName": "Task"
+        },
+        "summary": "={{$json.subject}}",
+        "additionalFields": {
+          "description": "={{$json.content}}"
+        }
+      },
+      "type": "n8n-nodes-base.jira",
+      "typeVersion": 1,
+      "position": [
+        784,
+        1040
+      ],
+      "id": "0ab61b3f-5a0e-4366-bc5d-9882a24cb696",
+      "name": "Create an issue",
+      "credentials": {
+        "jiraSoftwareCloudApi": {
+          "id": "MZPXyvl84PxQ00bB",
+          "name": "Jira SW Cloud account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Rebuild Approved Card for Jira Task\n// Marks the follow-up as \"Jira task created\", removes its buttons,\n// and keeps all other blocks as-is.\n\n// 1. Get data from previous nodes\n// Jira issue comes from \"Create an issue\" (this node's input)\nconst jira   = $json;\n\n// Slack metadata comes from Parse Slack Payload (same item index)\nconst parser = $item(0).$node[\"Parse Slack Payload\"].json;\n\n// 2. Identify which follow-up we just processed\nconst targetId = parser.followup_id; // e.g. \"1\", \"2\", \"8\", etc.\n\n// 3. Build Jira link text\nconst issueKey  = jira.key || \"\";          // e.g. \"SCRUM-6\"\nlet issueUrl    = jira.self || \"\";         // REST URL from Jira\n\nif (issueUrl.includes(\"/rest/api/2/issue/\")) {\n  // Turn REST URL into a nice browse URL\n  issueUrl = issueUrl.replace(\"/rest/api/2/issue/\", \"/browse/\");\n}\n\n// 4. Walk through the original blocks and update just this item\nconst existingBlocks = parser.raw.message.blocks;\nconst updated = [];\n\nfor (const block of existingBlocks) {\n  // (A) The text section for this follow-up\n  if (block.block_id === `section_${targetId}`) {\n    const originalText = block.text.text;\n\n    const appendix = issueUrl\n      ? `\\n\\n✅ *Jira task created:* <${issueUrl}|${issueKey}>`\n      : `\\n\\n✅ *Jira task created:* ${issueKey}`;\n\n    updated.push({\n      type: \"section\",\n      block_id: block.block_id,\n      text: {\n        type: \"mrkdwn\",\n        text: originalText + appendix,\n      },\n    });\n  }\n\n  // (B) The actions row (buttons) for this follow-up — drop it\n  else if (block.block_id === `actions_${targetId}`) {\n    continue; // skip this block to remove the buttons\n  }\n\n  // (C) Everything else — keep as-is\n  else {\n    updated.push(block);\n  }\n}\n\n// 5. Return updated blocks + response_url for the HTTP node\nreturn [{\n  json: {\n    blocks: updated,\n    response_url: parser.response_url,\n  },\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        992,
+        1040
+      ],
+      "id": "fe62e670-eb05-41eb-a57e-7bd5d15ee1eb",
+      "name": "Rebuild Approved Card for Jira Task"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://slack.com/api/chat.update",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "={{\"Bearer \" + $('Config').item.json.SLACK_BOT_TOKEN}}"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{\n  JSON.stringify({\n    // Channel + ts from the original card (Parse Slack Payload)\n    channel: $item(0).$node[\"Parse Slack Payload\"].json.card_channel,\n    ts:      $item(0).$node[\"Parse Slack Payload\"].json.card_ts,\n\n    // Updated blocks from the Rebuild Task/Jira Card node (current $json)\n    blocks:  $json.blocks\n  })\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1168,
+        1040
+      ],
+      "id": "8babe279-52e1-4850-b765-4de981c84ac7",
+      "name": "Update Slack After Jira Create"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d432c214-ae60-4847-9c49-73ce611b3948",
+              "name": "SLACK_BOT_TOKEN",
+              "value": "REPLACE_ME_SLACK_BOT_TOKEN",
+              "type": "string"
+            },
+            {
+              "id": "912f6a5f-01b6-4973-b6e2-9a661956c70f",
+              "name": "SLACK_API_BASE",
+              "value": "https://slack.com/api",
+              "type": "string"
+            },
+            {
+              "id": "bdc98ad2-e762-4d0a-bf35-41415817eef9",
+              "name": "gcal_calendar",
+              "value": "prathikskannan@gmail.com",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        320,
+        1232
+      ],
+      "id": "8316f05e-864a-4fda-ac10-6d9f585999fd",
+      "name": "Config"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Slack button Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse Slack Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Traffic Control": {
+      "main": [
+        [
+          {
+            "node": "Resolve User IDs",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Resolve Attendees",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Create an issue",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Open Edit_Modal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Rebuild Discarded Card",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Fetch Original Message for Gcal",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [],
+        [
+          {
+            "node": "Fetch Original Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Slack Payload": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rebuild Discarded Card": {
+      "main": [
+        [
+          {
+            "node": "Update Slack After Discard",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve User IDs": {
+      "main": [
+        [
+          {
+            "node": "Open Group DM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Open Group DM": {
+      "main": [
+        [
+          {
+            "node": "Send Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Message": {
+      "main": [
+        [
+          {
+            "node": "Rebuild Approved Card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rebuild Edited Card": {
+      "main": [
+        [
+          {
+            "node": "Update Slack After Edit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Original Message": {
+      "main": [
+        [
+          {
+            "node": "Rebuild Edited Card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rebuild Approved Card": {
+      "main": [
+        [
+          {
+            "node": "Update Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resolve Attendees": {
+      "main": [
+        [
+          {
+            "node": "Get All Users",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get All Users": {
+      "main": [
+        [
+          {
+            "node": "Map IDs to Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Map IDs to Emails": {
+      "main": [
+        [
+          {
+            "node": "Get availability in a calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get availability in a calendar": {
+      "main": [
+        [
+          {
+            "node": "Calculate Slots",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate Slots": {
+      "main": [
+        [
+          {
+            "node": "Open Time Picker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create GCal Event": {
+      "main": [
+        [
+          {
+            "node": "Rebuild Booked Card",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rebuild Booked Card": {
+      "main": [
+        [
+          {
+            "node": "Update Slack After Gcal Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Original Message for Gcal": {
+      "main": [
+        [
+          {
+            "node": "Create GCal Event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an issue": {
+      "main": [
+        [
+          {
+            "node": "Rebuild Approved Card for Jira Task",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rebuild Approved Card for Jira Task": {
+      "main": [
+        [
+          {
+            "node": "Update Slack After Jira Create",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Traffic Control",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d9282cbd-6816-4aaf-b784-ad57922bf075",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "25e8fc29e0908f075e61e727b2c150c7c3ad88ebf939d888f5bfdecb977f8a23"
+  },
+  "id": "ww5Jnv8FtTUiNX4i",
+  "tags": []
+}
