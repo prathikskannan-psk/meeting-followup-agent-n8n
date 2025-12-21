@@ -167,10 +167,12 @@ These metrics directly measure cognitive load reduction without sacrificing exec
 
 ## 🚀 Future Roadmap 
 
+- **Formal AI Evaluation**  [IN PROGRESS]
+  Precision, recall, and relevance scoring of proposed actions  
+
 - **Priority & Risk Scoring**  
   Flag high-impact follow-ups for extra review  
-- **Formal AI Evaluation**  
-  Precision, recall, and relevance scoring of proposed actions  
+
 
 ---
 
