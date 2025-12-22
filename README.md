@@ -207,6 +207,8 @@ These metrics directly measure cognitive load reduction without sacrificing exec
 
 ## 🚀 Future Roadmap 
 
+- **Initial Vibe Checks done**
+
 - **Formal AI Evaluation**  [IN PROGRESS]
   Precision, recall, and relevance scoring of proposed actions  
 
