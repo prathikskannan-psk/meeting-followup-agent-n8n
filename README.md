@@ -220,4 +220,3 @@ These metrics directly measure cognitive load reduction without sacrificing exec
 
 This repository contains exported n8n workflows intended for experimentation and learning.
 
-Some nodes (e.g., Jira, Google Calendar) require users to configure their own credentials after import.
