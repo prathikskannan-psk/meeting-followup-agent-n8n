@@ -184,6 +184,79 @@ This preserves trust while eliminating repetitive administrative work.
 
 ---
 
+## 📸 Example: End-to-End Slack Experience
+
+Below is an example of the complete **post-meeting follow-up workflow executed entirely from Slack**.
+
+Once meeting notes are created, the system proposes follow-ups, pauses for human review, and executes approved actions — **without requiring users to leave Slack**.
+
+---
+
+### 1️⃣ AI-Proposed Follow-Ups (Approval Required)
+
+After meeting notes are created in Google Drive, the workflow analyzes the raw transcript and posts **AI-proposed follow-up actions** as an interactive Slack card.
+
+Each action includes:
+- Suggested owner and recipients
+- Context pulled directly from the meeting
+- Clear **Approve / Edit / Discard** controls
+
+This ensures AI accelerates execution **without bypassing human judgment**.
+
+![AI-proposed follow-ups in Slack](images/01-slack-approval-card.png)
+
+---
+
+### 2️⃣ Jira Task Creation (Approved Action)
+
+When a task-related follow-up is approved, the workflow creates a **Jira issue** and immediately updates the Slack card with confirmation.
+
+Key behavior:
+- No Jira UI interaction required
+- Issue key and status are surfaced directly in Slack
+- The action is marked as completed to avoid duplicate work
+
+![Jira task created confirmation](images/02-jira-task-created.png)
+
+---
+
+### 3️⃣ Slack Message Execution
+
+Slack-based follow-ups (e.g., recaps, stakeholder updates) can be **edited and sent inline**.
+
+Once approved:
+- The message is delivered to the selected channel or user
+- The Slack card updates to confirm successful delivery
+- No copy-paste or context switching is required
+
+![Slack message successfully sent](images/03-slack-message-sent.png)
+
+---
+
+### 4️⃣ Calendar Scheduling (Meeting Booked)
+
+Scheduling-related actions allow users to find times, confirm attendees, and book meetings — all from Slack.
+
+Once confirmed:
+- A Google Calendar event is created
+- Meeting links and calendar access are surfaced inline
+- The original action is marked as completed
+
+![Meeting booked via Slack](images/04-calendar-booked.png)
+
+---
+
+### 🔑 Why This Matters
+
+These examples demonstrate the core product philosophy of this workflow:
+
+- **Slack as the single pane of glass** for post-meeting execution  
+- **Human-in-the-loop control** for all outbound actions  
+- **Zero context switching** across Jira, Slack, and Google Calendar  
+
+The result is faster follow-through, lower cognitive load, and higher confidence in execution.
+
+
 ## 📈 Success Metrics (KPIs)
 
 This workflow is designed to optimize for:
