@@ -1,4 +1,4 @@
-# Meeting-Followup-Agent-n8n  
+# Meeting-Followup-Agent  
 ### Closing the “Post-Meeting Action Gap”
 
 An AI-powered meeting follow-up workflow built in n8n that triggers when meeting notes are created in Google Drive, reasons over the raw transcript, and turns meeting outcomes into execution-ready Slack messages, Jira tasks, and Google Calendar events — all proposed, reviewed, edited, and approved directly inside Slack without leaving the workspace.
