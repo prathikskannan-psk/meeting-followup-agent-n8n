@@ -8,7 +8,8 @@ The system is robust for execution-focused meetings (100% success on clear hando
 
 **Link to Raw Evaluation Data in Sheet:**  
 **https://docs.google.com/spreadsheets/d/1mlgEvVtZj0DnaAw-jidXE_qzvxHbkL8bM4BfQ1kQhvo/edit?usp=sharing
-**---
+**
+---
 
 ## 2. Methodology: The "User Stress Test"
 To validate "Production Readiness," I created a Golden Dataset representing real-world edge cases.
