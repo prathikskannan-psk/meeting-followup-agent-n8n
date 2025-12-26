@@ -6,7 +6,7 @@
 **Top-Line Verdict:**
 The system is robust for execution-focused meetings (100% success on clear handoffs) and requires additional review in more ambiguous scenarios, where it may propose unnecessary actions during brainstorming.
 
-**📄 Raw Evaluation Data (v2):**
+**📄 Raw Evaluation Data (v1):**
 [View Google Sheet](https://docs.google.com/spreadsheets/d/1mlgEvVtZj0DnaAw-jidXE_qzvxHbkL8bM4BfQ1kQhvo/edit?usp=sharing)
 
 ---
