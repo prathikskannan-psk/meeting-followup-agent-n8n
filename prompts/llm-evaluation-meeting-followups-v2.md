@@ -78,7 +78,7 @@ To measure production readiness, I reused the same Golden Dataset from v1, repre
 
 ### 🟡 Remaining Limitation: Overloaded Meetings (T4)
 * **Observation:** In meetings with many parallel workstreams, the system may still over-extract or use role-level owners (e.g., “Eng”, “Design”).
-* **Why this is acceptable:** A human-in-the-loop approval step exists, and no latency is introduced. Precision can be improved iteratively without blocking adoption.
+* **Why this is acceptable:** A human-in-the-loop approval step exists, and no latency is introduced. 
 
 ---
 
