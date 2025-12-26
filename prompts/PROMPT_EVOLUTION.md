@@ -1,4 +1,4 @@
-# 🚀 Prompt v2: Changelog & Design Philosophy
+# Prompt v2: Changelog & Design Philosophy
 
 ## 1. What Changed vs. What Improved
 v2 shifts the system from "maximum extraction" to "intent-based gating," prioritizing trust and automation safety.
