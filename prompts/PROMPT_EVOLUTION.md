@@ -12,7 +12,7 @@ v2 shifts the system from "maximum extraction" to "intent-based gating," priorit
 | **Task Quality** | Variable specificity | **Structured:** Includes acceptance criteria & standardized duration. |
 | **Safety** | Medium | **High:** Intent-based gating + Human-in-the-Loop design. |
 
-> **PM Verdict:** Prompt v2 introduces intent-based action gating, explicit uncertainty handling, and execution-ready outputs, significantly improving reliability and trust while remaining suitable for human-in-the-loop automation.
+> **Verdict:** Prompt v2 introduces intent-based action gating, explicit uncertainty handling, and execution-ready outputs, significantly improving reliability and trust while remaining suitable for human-in-the-loop automation.
 
 ---
 
