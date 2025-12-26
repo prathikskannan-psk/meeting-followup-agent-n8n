@@ -82,6 +82,3 @@ To measure production readiness, I reused the same Golden Dataset from v1, repre
 
 ---
 
-## 6. Next Steps
-* **Refine Overload Handling:** Improve prioritization and consolidation in highly dense meetings.
-* **Regression Testing:**
